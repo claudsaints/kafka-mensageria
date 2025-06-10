@@ -6,15 +6,22 @@ import com.claudsaints.api_boleto.entity.Boleto;
 import com.claudsaints.api_boleto.entity.enums.SituacaoBoleto;
 import com.claudsaints.api_boleto.mapper.BoletoMapper;
 import com.claudsaints.api_boleto.repository.BoletoRepository;
+import com.claudsaints.api_boleto.service.kafka.BoletoProducer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class BoletoService {
-    @Autowired
-    private BoletoRepository repository;
+
+    private final BoletoRepository repository;
+
+    private final BoletoProducer producer;
+
+
 
     public BoletoDTO create(String codigoDeBarras){
         var boletoOptional = repository.findByCodigoDeBarras(codigoDeBarras);
@@ -30,8 +37,12 @@ public class BoletoService {
                 .dataDeAtualizacao(LocalDateTime.now())
                 .build();
 
+        var boletoDTO = BoletoMapper.toDTO(boletoEntity);
+
         repository.save(boletoEntity);
-        return BoletoMapper.toDTO(boletoEntity);
+        producer.enviarMensagem(boletoDTO);
+
+        return boletoDTO;
 
     }
 
