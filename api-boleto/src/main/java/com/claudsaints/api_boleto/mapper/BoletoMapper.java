@@ -13,8 +13,11 @@ public class BoletoMapper {
                 .build();
 
     }
-    public static Boleto toAvro(Boleto boleto){
-        return boleto;
+    public static com.claudsaints.avro.Boleto toAvro(Boleto boleto){
+        return com.claudsaints.avro.Boleto.newBuilder()
+                .setCodigoBarras(boleto.getCodigoDeBarras())
+                .setSituacaoBoleto(boleto.getSituacaoBoleto().ordinal())
+                .build();
     }
 
     public static Boleto toEntity(BoletoDTO dto){

@@ -40,7 +40,7 @@ public class BoletoService {
         var boletoDTO = BoletoMapper.toDTO(boletoEntity);
 
         repository.save(boletoEntity);
-        producer.enviarMensagem(boletoDTO);
+        producer.enviarMensagem(BoletoMapper.toAvro(boletoEntity));
 
         return boletoDTO;
 
