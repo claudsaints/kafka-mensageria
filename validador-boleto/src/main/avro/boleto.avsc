@@ -1,0 +1,20 @@
+{
+    "type": "record",
+    "namespace": "com.claudsaints.avro",
+    "name":"BoletoConsumer",
+    "fields": [
+        {
+            "name": "codigoBarras",
+            "type": "string"
+        },
+         {
+            "name": "situacaoBoleto",
+            "type": "int"
+        }
+
+
+
+    ]
+
+
+}
