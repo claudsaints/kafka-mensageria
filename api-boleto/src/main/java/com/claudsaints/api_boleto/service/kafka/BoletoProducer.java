@@ -17,6 +17,14 @@ public class BoletoProducer {
     }
 
     public void enviarMensagem(Boleto boleto){
-        kafkaTemplate.send(topic, boleto);
+        kafkaTemplate.send(topic, getKey(boleto), boleto);
     }
+
+    private String getKey(Boleto boleto) {
+        if (boleto.getCodigoBarras().toString().substring(0,1).equals("2")) {
+            return "chave1";
+        }
+        return "chave2";
+    }
+
 }

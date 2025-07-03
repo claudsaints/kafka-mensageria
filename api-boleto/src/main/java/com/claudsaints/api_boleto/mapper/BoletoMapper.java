@@ -1,10 +1,10 @@
 package com.claudsaints.api_boleto.mapper;
 
 import com.claudsaints.api_boleto.dto.BoletoDTO;
-import com.claudsaints.api_boleto.entity.Boleto;
+import com.claudsaints.api_boleto.entity.BoletoEntity;
 
 public class BoletoMapper {
-    public static BoletoDTO toDTO(Boleto boleto){
+    public static BoletoDTO toDTO(BoletoEntity boleto){
         return BoletoDTO.builder()
                 .situacaoBoleto(boleto.getSituacaoBoleto())
                 .codigoBarrras(boleto.getCodigoDeBarras())
@@ -13,15 +13,15 @@ public class BoletoMapper {
                 .build();
 
     }
-    public static com.claudsaints.avro.Boleto toAvro(Boleto boleto){
+    public static com.claudsaints.avro.Boleto toAvro(BoletoEntity boleto){
         return com.claudsaints.avro.Boleto.newBuilder()
                 .setCodigoBarras(boleto.getCodigoDeBarras())
                 .setSituacaoBoleto(boleto.getSituacaoBoleto().ordinal())
                 .build();
     }
 
-    public static Boleto toEntity(BoletoDTO dto){
-        return Boleto.builder()
+    public static BoletoEntity toEntity(BoletoDTO dto){
+        return BoletoEntity.builder()
                 .codigoDeBarras(dto.getCodigoBarrras())
                 .situacaoBoleto(dto.getSituacaoBoleto())
                 .dataDeCriacao(dto.getDataCriacao())
